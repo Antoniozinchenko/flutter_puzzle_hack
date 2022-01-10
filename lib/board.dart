@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:puzzle_hack/drag_direction.dart';
-import 'package:puzzle_hack/item.dart';
+import 'drag_direction.dart';
+import 'tile/tile.dart';
 
 class Board extends StatefulWidget {
   const Board({
@@ -33,17 +33,14 @@ class _BoardState extends State<Board> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final boardSize = constraints.maxWidth;
-      return Stack(
-        children: [
-          Container(
-            color: Colors.blue.shade100,
-          ),
-          ..._buildItems(boardSize),
-        ],
-      );
-    });
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      color: Colors.blue.shade100,
+      child: LayoutBuilder(builder: (context, constraints) {
+        final boardSize = constraints.maxWidth;
+        return Stack(children: _buildItems(boardSize));
+      }),
+    );
   }
 
   void _init() {
@@ -96,12 +93,13 @@ class _BoardState extends State<Board> {
               });
         }
 
-        items.add(Item(
+        items.add(Tile(
           key: ValueKey(i),
           top: i ~/ widget.gridSize * size,
           left: i % widget.gridSize * size,
           size: size,
           value: boardState[i]!,
+          valid: boardState[i] == i + 1,
           dragDirection: dragDirection,
           onSwap: onSwap,
         ));

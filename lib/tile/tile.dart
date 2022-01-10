@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:puzzle_hack/drag_direction.dart';
+import 'package:puzzle_hack/tile/tile_view.dart';
 
-class Item extends StatefulWidget {
-  const Item({
+class Tile extends StatefulWidget {
+  const Tile({
     Key? key,
     required this.size,
     required this.value,
@@ -10,20 +11,22 @@ class Item extends StatefulWidget {
     this.onSwap,
     required this.top,
     required this.left,
+    required this.valid,
   }) : super(key: key);
 
   final double top;
   final double left;
   final double size;
   final int value;
+  final bool valid;
   final DragDirection? dragDirection;
   final Function()? onSwap;
 
   @override
-  State<Item> createState() => _ItemState();
+  State<Tile> createState() => _TileState();
 }
 
-class _ItemState extends State<Item> {
+class _TileState extends State<Tile> {
   double _dy = 0;
   double _dx = 0;
 
@@ -100,22 +103,14 @@ class _ItemState extends State<Item> {
             ? _onHorizontalDragEnd
             : null,
         child: Container(
-          padding: const EdgeInsets.all(2),
-          width: widget.size,
-          height: widget.size,
-          child: Container(
-            color: Colors.blue.shade400,
-            child: Center(
-              child: Text(
-                widget.value.toString(),
-                style: TextStyle(
-                  fontSize: widget.size * 0.6,
-                  color: Colors.white54,
-                ),
-              ),
-            ),
-          ),
-        ),
+            padding: const EdgeInsets.all(2),
+            width: widget.size,
+            height: widget.size,
+            child: TileView(
+              value: widget.value,
+              size: widget.size,
+              valid: widget.valid,
+            )),
       ),
     );
   }
