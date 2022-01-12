@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:puzzle_hack/drag_direction.dart';
-import 'package:puzzle_hack/tile/tile_view.dart';
+import 'package:provider/provider.dart';
+import 'package:puzzle_hack/bloc/winner_state.dart';
+
+import '../../drag_direction.dart';
+import 'tile_view.dart';
 
 class Tile extends StatefulWidget {
   const Tile({
@@ -82,6 +85,20 @@ class _TileState extends State<Tile> {
 
   @override
   Widget build(BuildContext context) {
+    final winner = context.watch<WinnerState>().value;
+
+    if (winner || widget.dragDirection == null) {
+      return Positioned(
+        top: widget.top,
+        left: widget.left,
+        child: TileView(
+          value: widget.value,
+          size: widget.size,
+          valid: widget.valid,
+        ),
+      );
+    }
+
     return Positioned(
       top: widget.top + _dy,
       left: widget.left + _dx,
@@ -102,15 +119,11 @@ class _TileState extends State<Tile> {
                 widget.dragDirection == DragDirection.right
             ? _onHorizontalDragEnd
             : null,
-        child: Container(
-            padding: const EdgeInsets.all(2),
-            width: widget.size,
-            height: widget.size,
-            child: TileView(
-              value: widget.value,
-              size: widget.size,
-              valid: widget.valid,
-            )),
+        child: TileView(
+          value: widget.value,
+          size: widget.size,
+          valid: widget.valid,
+        ),
       ),
     );
   }

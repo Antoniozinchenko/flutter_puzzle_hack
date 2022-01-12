@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:puzzle_hack/app.dart';
+
+import 'home.dart';
 
 void main() {
-  runApp(const App());
+  runApp(const MaterialApp(home: Home()));
 }
