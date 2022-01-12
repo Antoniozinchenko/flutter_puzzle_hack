@@ -1,105 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'bloc/board_state.dart';
 import 'drag_direction.dart';
-import 'tile/tile.dart';
+import 'widgets/tile/tile.dart';
 
-class Board extends StatefulWidget {
-  const Board({
-    Key? key,
-    required this.gridSize,
-  }) : super(key: key);
-
-  final int gridSize;
-
-  @override
-  State<Board> createState() => _BoardState();
-}
-
-class _BoardState extends State<Board> {
-  List<int?> boardState = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
-
-  @override
-  void didUpdateWidget(covariant Board oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.gridSize != widget.gridSize) {
-      _init();
-    }
-  }
+class Board extends StatelessWidget {
+  const Board({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final boardState = context.watch<BoardState>();
     return Container(
       padding: const EdgeInsets.all(8.0),
       color: Colors.blue.shade100,
       child: LayoutBuilder(builder: (context, constraints) {
         final boardSize = constraints.maxWidth;
-        return Stack(children: _buildItems(boardSize));
+        return Stack(children: _buildItems(boardState, boardSize));
       }),
     );
   }
 
-  void _init() {
-    setState(() {
-      boardState = List.generate(
-          widget.gridSize * widget.gridSize - 1, (index) => index + 1)
-        ..shuffle()
-        ..add(null);
-    });
-  }
-
-  List<Widget> _buildItems(double boardSize) {
-    final size = boardSize / widget.gridSize;
+  List<Widget> _buildItems(BoardState boardState, double boardSize) {
+    final size = boardSize / boardState.gridSize;
     final items = <Widget>[];
-    for (int i = 0; i < boardState.length; i++) {
-      if (boardState.elementAt(i) != null) {
+    for (int i = 0; i < boardState.value.length; i++) {
+      if (boardState.value.elementAt(i) != null) {
         DragDirection? dragDirection;
         Function()? onSwap;
         // check item on right side
-        if (((i + 1) % widget.gridSize > 0) && boardState[i + 1] == null) {
+        if (((i + 1) % boardState.gridSize > 0) && boardState.value[i + 1] == null) {
           dragDirection = DragDirection.right;
-          onSwap = () => setState(() {
-                final result = [...boardState];
-                result[i + 1] = result[i];
-                result[i] = null;
-                boardState = result;
-              });
+          onSwap = () => boardState.swap(i, i + 1);
+          
           // check item on left side
-        } else if ((i % widget.gridSize != 0) && boardState[i - 1] == null) {
+        } else if ((i % boardState.gridSize != 0) && boardState.value[i - 1] == null) {
           dragDirection = DragDirection.left;
-          onSwap = () => setState(() {
-                boardState[i - 1] = boardState[i];
-                boardState[i] = null;
-              });
+          onSwap = () => boardState.swap(i, i - 1);
+
           // check item above
-        } else if (i >= widget.gridSize &&
-            boardState[i - widget.gridSize] == null) {
+        } else if (i >= boardState.gridSize &&
+            boardState.value[i - boardState.gridSize] == null) {
           dragDirection = DragDirection.up;
-          onSwap = () => setState(() {
-                boardState[i - widget.gridSize] = boardState[i];
-                boardState[i] = null;
-              });
+          onSwap = () => boardState.swap(i, i - boardState.gridSize);
+
           // check item below
-        } else if (i < boardState.length - widget.gridSize &&
-            boardState[i + widget.gridSize] == null) {
+        } else if (i < boardState.value.length - boardState.gridSize &&
+            boardState.value[i + boardState.gridSize] == null) {
           dragDirection = DragDirection.down;
-          onSwap = () => setState(() {
-                boardState[i + widget.gridSize] = boardState[i];
-                boardState[i] = null;
-              });
+          onSwap = () => boardState.swap(i, i + boardState.gridSize);
         }
 
         items.add(Tile(
           key: ValueKey(i),
-          top: i ~/ widget.gridSize * size,
-          left: i % widget.gridSize * size,
+          top: i ~/ boardState.gridSize * size,
+          left: i % boardState.gridSize * size,
           size: size,
-          value: boardState[i]!,
-          valid: boardState[i] == i + 1,
+          value: boardState.value[i]!,
+          valid: boardState.value[i] == i + 1,
           dragDirection: dragDirection,
           onSwap: onSwap,
         ));
