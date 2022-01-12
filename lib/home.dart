@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:puzzle_hack/bloc/timer_state.dart';
+import 'package:puzzle_hack/bloc/winner_state.dart';
 import 'package:puzzle_hack/widgets/game_stats/game_stats.dart';
+import 'package:puzzle_hack/widgets/shuffle.dart';
 
 import 'bloc/board_state.dart';
 import 'board.dart';
@@ -12,11 +15,23 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<BoardState>(
           create: (_) => BoardState(gridSize: 4),
+        ),
+        ChangeNotifierProxyProvider<BoardState, WinnerState>(
+          create: (_) => WinnerState(),
+          update: (_, boardState, winnerState) =>
+              winnerState!..check(boardState),
+        ),
+        ChangeNotifierProxyProvider<WinnerState, TimerState>(
+          create: (_) => TimerState(),
+          update: (_, winnerState, timer) => timer!..checkTimer(winnerState),
         ),
       ],
       child: Scaffold(
+        appBar: AppBar(
+          actions: const [Shuffle()],
+        ),
         body: Column(
           children: const [
             GameStats(),

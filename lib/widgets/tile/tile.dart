@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:puzzle_hack/bloc/board_state.dart';
+import 'package:puzzle_hack/bloc/winner_state.dart';
 
 import '../../drag_direction.dart';
 import 'tile_view.dart';
@@ -86,12 +85,12 @@ class _TileState extends State<Tile> {
 
   @override
   Widget build(BuildContext context) {
-    final winner = context.watch<BoardState>().winner;
+    final winner = context.watch<WinnerState>().value;
 
     if (winner || widget.dragDirection == null) {
       return Positioned(
-      top: widget.top,
-      left: widget.left,
+        top: widget.top,
+        left: widget.left,
         child: TileView(
           value: widget.value,
           size: widget.size,
