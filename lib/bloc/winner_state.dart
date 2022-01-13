@@ -4,10 +4,11 @@ import 'package:puzzle_hack/bloc/board_state.dart';
 class WinnerState extends ValueNotifier<bool> {
   WinnerState() : super(false);
 
-  int movesCount = -1;
+  int movesCount = 0;
 
   void reset() {
-    movesCount = -1;
+    movesCount = 0;
+    value = false;
     notifyListeners();
   }
 

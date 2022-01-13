@@ -18,10 +18,8 @@ class Home extends StatelessWidget {
         ChangeNotifierProvider<BoardState>(
           create: (_) => BoardState(gridSize: 4),
         ),
-        ChangeNotifierProxyProvider<BoardState, WinnerState>(
+        ChangeNotifierProvider<WinnerState>(
           create: (_) => WinnerState(),
-          update: (_, boardState, winnerState) =>
-              winnerState!..check(boardState),
         ),
         ChangeNotifierProxyProvider<WinnerState, TimerState>(
           create: (_) => TimerState(),

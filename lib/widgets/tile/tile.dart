@@ -87,7 +87,7 @@ class _TileState extends State<Tile> {
   Widget build(BuildContext context) {
     final winner = context.watch<WinnerState>().value;
 
-    if (winner || widget.dragDirection == null) {
+    if (winner) {
       return Positioned(
         top: widget.top,
         left: widget.left,
