@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:puzzle_hack/bloc/winner_state.dart';
 
-class TileView extends StatefulWidget {
+import 'package:puzzle_hack/bloc/winner_state.dart';
+import 'package:puzzle_hack/widgets/tile/scale_animation.dart';
+import 'reflection.dart';
+
+class TileView extends StatelessWidget {
   const TileView({
     Key? key,
     required this.value,
@@ -15,66 +18,48 @@ class TileView extends StatefulWidget {
   final bool valid;
 
   @override
-  State<TileView> createState() => _TileViewState();
-}
-
-class _TileViewState extends State<TileView>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _scaleAnimation = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 1, end: 1.2), weight: 40),
-      TweenSequenceItem(tween: Tween(begin: 1.2, end: 1.2), weight: 30),
-      TweenSequenceItem(tween: Tween(begin: 1.2, end: 1), weight: 30),
-    ]).animate(_animationController);
-
-    _animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final winner = context.watch<WinnerState>().value;
-    final color = winner ? Colors.green.shade400 : Colors.blue.shade400;
+    final color = winner ? Colors.green : Theme.of(context).primaryColor;
+    final borderRadius = BorderRadius.circular(size * 0.1);
     return Container(
       padding: const EdgeInsets.all(2),
-      width: widget.size,
-      height: widget.size,
-      child: AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: child,
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(widget.size * 0.1),
-          ),
-          child: Center(
-            child: Text(
-              widget.value.toString(),
+      width: size,
+      height: size,
+      child: ScaleAnimation(
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.hardEdge,
+          children: [
+            Container(
+              padding: EdgeInsets.all(size * 0.1),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: borderRadius,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.white24,
+                    ],
+                  ),
+                  borderRadius: borderRadius,
+                ),
+              ),
+            ),
+            Text(
+              value.toString(),
               style: TextStyle(
-                fontSize: widget.size * 0.6,
+                fontSize: size * 0.6,
                 color: Colors.white54,
               ),
             ),
-          ),
+            Reflection(size: size),
+          ],
         ),
       ),
     );
