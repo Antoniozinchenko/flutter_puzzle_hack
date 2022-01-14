@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:puzzle_hack/bloc/timer_state.dart';
 import 'package:puzzle_hack/bloc/winner_state.dart';
-import 'package:puzzle_hack/widgets/game_stats/game_stats.dart';
-import 'package:puzzle_hack/widgets/shuffle.dart';
+import 'package:puzzle_hack/widgets/game_stats/score.dart';
+import 'package:puzzle_hack/widgets/shuffle_button.dart';
 
 import 'bloc/board_state.dart';
 import 'board.dart';
@@ -27,21 +27,32 @@ class Home extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        appBar: AppBar(
-          actions: const [Shuffle()],
-        ),
-        body: Column(
-          children: const [
-            GameStats(),
-            Expanded(
-              child: Center(
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: Board(),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black,
+                  Color(0xFF434343),
+                ]),
+          ),
+          child: Column(
+            children: const [
+              Score(),
+              Expanded(
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: Board(),
+                  ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 12),
+              ShuffleButton(),
+              SizedBox(height: 12),
+            ],
+          ),
         ),
       ),
     );

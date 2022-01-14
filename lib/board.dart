@@ -15,7 +15,7 @@ class Board extends StatelessWidget {
     final winnerState = context.read<WinnerState>();
     return Container(
       padding: const EdgeInsets.all(8.0),
-      color: Colors.blue.shade100,
+      color: Colors.black12,
       child: LayoutBuilder(builder: (context, constraints) {
         final boardSize = constraints.maxWidth;
         return Stack(children: _buildItems(boardState, winnerState, boardSize));

@@ -13,11 +13,11 @@ class Score extends StatelessWidget {
       children: [
         Text(
           'Best Score: ${timer.bestScore ?? ""}',
-          style: textTheme.headline5,
+          style: textTheme.headline4!.copyWith(color: Colors.white),
         ),
         Text(
           'Elapsed Time: ${timer.value ?? ""}',
-          style: textTheme.headline5,
+          style: textTheme.headline4!.copyWith(color: Colors.white),
         ),
       ],
     );
