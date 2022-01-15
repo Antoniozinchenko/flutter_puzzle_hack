@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const _fontSize = 40.0;
 
 class Digit extends StatefulWidget {
   const Digit({Key? key, required this.value}) : super(key: key);
-  final int value;
+  final int? value;
 
   @override
   State<Digit> createState() => _DigitState();
@@ -84,15 +85,16 @@ class _DigitState extends State<Digit> with SingleTickerProviderStateMixin {
 class _DigitValue extends StatelessWidget {
   const _DigitValue({Key? key, required this.digit}) : super(key: key);
 
-  final int digit;
+  final int? digit;
 
   @override
   Widget build(BuildContext context) {
+    final color = context.read<Color>();
     return Text(
-      digit.toString(),
-      style: const TextStyle(
+      '${digit ?? "-"}',
+      style: TextStyle(
         fontSize: _fontSize,
-        color: Colors.white70,
+        color: color,
         fontWeight: FontWeight.bold,
       ),
     );

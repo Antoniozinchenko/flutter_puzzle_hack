@@ -27,31 +27,33 @@ class Home extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black,
-                  Color(0xFF434343),
-                ]),
-          ),
-          child: Column(
-            children: const [
-              Score(),
-              Expanded(
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: 1.0,
-                    child: Board(),
+        body: SafeArea(
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black,
+                    Color(0xFF434343),
+                  ]),
+            ),
+            child: Column(
+              children: const [
+                Score(),
+                Expanded(
+                  child: Center(
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: Board(),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 12),
-              ShuffleButton(),
-              SizedBox(height: 12),
-            ],
+                SizedBox(height: 12),
+                ShuffleButton(),
+                SizedBox(height: 12),
+              ],
+            ),
           ),
         ),
       ),
