@@ -27,39 +27,39 @@ class TileView extends StatelessWidget {
       width: size,
       height: size,
       child: ScaleAnimation(
-        child: Stack(
-          alignment: Alignment.center,
-          clipBehavior: Clip.hardEdge,
-          children: [
-            Container(
-              padding: EdgeInsets.all(size * 0.1),
-              decoration: BoxDecoration(
+        child: ClipRRect(
+          borderRadius: borderRadius,
+          child: Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.hardEdge,
+            children: [
+              Container(
+                padding: EdgeInsets.all(size * 0.1),
                 color: color,
-                borderRadius: borderRadius,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.white24,
-                    ],
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.white24,
+                      ],
+                    ),
+                    borderRadius: borderRadius,
                   ),
-                  borderRadius: borderRadius,
                 ),
               ),
-            ),
-            Text(
-              value.toString(),
-              style: TextStyle(
-                fontSize: size * 0.6,
-                color: Colors.white54,
+              Text(
+                value.toString(),
+                style: TextStyle(
+                  fontSize: size * 0.6,
+                  color: Colors.white54,
+                ),
               ),
-            ),
-            Reflection(size: size),
-          ],
+              Reflection(size: size),
+            ],
+          ),
         ),
       ),
     );

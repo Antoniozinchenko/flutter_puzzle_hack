@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:puzzle_hack/bloc/timer_state.dart';
+import 'stopwatch/stopwatch.dart';
 
 class Score extends StatelessWidget {
   const Score({Key? key}) : super(key: key);
@@ -15,10 +16,7 @@ class Score extends StatelessWidget {
           'Best Score: ${timer.bestScore ?? ""}',
           style: textTheme.headline4!.copyWith(color: Colors.white),
         ),
-        Text(
-          'Elapsed Time: ${timer.value ?? ""}',
-          style: textTheme.headline4!.copyWith(color: Colors.white),
-        ),
+        const StopwatchWidget(),
       ],
     );
   }
