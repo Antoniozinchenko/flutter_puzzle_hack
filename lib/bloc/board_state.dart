@@ -7,10 +7,10 @@ class BoardState extends ValueNotifier<List<int?>> {
   final int gridSize;
 
   void shuffle() {
-    value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, null, 13, 14, 15];
-    // value = List.generate(gridSize * gridSize - 1, (index) => index + 1)
-    //   ..shuffle()
-    //   ..add(null);
+    // value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, null, 13, 14, 15];
+    value = List.generate(gridSize * gridSize - 1, (index) => index + 1)
+      ..shuffle()
+      ..add(null);
   }
 
   void swap(int draggedIndex, int emptyIndex) {
