@@ -1,16 +1,20 @@
-# puzzle_hack
+# 15 Puzzle Game
 
-A new Flutter project.
+[Game Website](https://flutter-puzzle-hack.web.app/#/)
 
-## Getting Started
+This is my project for [Flutter Puzzle Hack Challenge](https://flutterhack.devpost.com/)
 
-This project is a starting point for a Flutter application.
+## Game Concept
+- You can only swipe one tile at a time on the board.
 
-A few resources to get you started if this is your first Flutter project:
+- Board state is just array with 15 numbers and last null element
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- For checking win state, just need to compare board state array with the same sorted array (null item should be last)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Start timer if moves count equal 1. Stop timer if moves count equals zero or user won game (also check best score in this case)
+
+
+### Additional Dependencies
+This project is quite lightweight and have only few dependencies.
+- Provider
+- Shared Preferences
