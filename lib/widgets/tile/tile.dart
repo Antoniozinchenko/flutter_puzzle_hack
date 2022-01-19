@@ -119,6 +119,11 @@ class _TileState extends State<Tile> {
                 widget.dragDirection == DragDirection.right
             ? _onHorizontalDragEnd
             : null,
+        onTapUp: (_) {
+          if (widget.dragDirection != null) {
+            widget.onSwap!();
+          }
+        },
         child: TileView(
           value: widget.value,
           size: widget.size,
