@@ -18,10 +18,7 @@ class BestScore extends StatelessWidget {
           color: Colors.green.shade200,
         ),
         const SizedBox(width: 12),
-        Text(
-          'Best score',
-          style: textTheme.headline6!.copyWith(color: Colors.white),
-        ),
+        Text('Best score', style: textTheme.headline6),
       ],
     );
   }

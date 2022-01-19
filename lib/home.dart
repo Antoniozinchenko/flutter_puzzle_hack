@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:puzzle_hack/bloc/timer_state.dart';
 import 'package:puzzle_hack/bloc/winner_state.dart';
+import 'package:puzzle_hack/widgets/board_decoration.dart';
 import 'package:puzzle_hack/widgets/game_stats/score.dart';
 import 'package:puzzle_hack/widgets/shuffle_button.dart';
 
 import 'bloc/board_state.dart';
-import 'board.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class Home extends StatelessWidget {
                   child: Center(
                     child: AspectRatio(
                       aspectRatio: 1.0,
-                      child: Board(),
+                      child: BoardDecoration(),
                     ),
                   ),
                 ),

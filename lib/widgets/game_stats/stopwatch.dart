@@ -20,10 +20,7 @@ class StopwatchWidget extends StatelessWidget {
           color: Colors.yellow.shade200,
         ),
         const SizedBox(width: 12),
-        Text(
-          'Elapsed Time',
-          style: textTheme.headline6!.copyWith(color: Colors.white),
-        ),
+        Text('Elapsed Time', style: textTheme.headline6),
       ],
     );
   }

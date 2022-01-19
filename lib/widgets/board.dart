@@ -2,28 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:puzzle_hack/bloc/winner_state.dart';
 
-import 'bloc/board_state.dart';
-import 'drag_direction.dart';
-import 'widgets/tile/tile.dart';
+import '../bloc/board_state.dart';
+import '../drag_direction.dart';
+import 'tile/tile.dart';
 
 class Board extends StatelessWidget {
-  const Board({Key? key}) : super(key: key);
+  const Board({Key? key, required this.boardSize}) : super(key: key);
+
+  final double boardSize;
 
   @override
   Widget build(BuildContext context) {
     final boardState = context.watch<BoardState>();
     final winnerState = context.read<WinnerState>();
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      color: Colors.black12,
-      child: LayoutBuilder(builder: (context, constraints) {
-        final boardSize = constraints.maxWidth;
-        return Stack(children: _buildItems(boardState, winnerState, boardSize));
-      }),
+    return SizedBox(
+      width: boardSize,
+      height: boardSize,
+      child: Stack(
+        children: _buildItems(
+          boardState,
+          winnerState,
+          boardSize,
+        ),
+      ),
     );
   }
 
-  List<Widget> _buildItems(BoardState boardState, WinnerState winnerState, double boardSize) {
+  List<Widget> _buildItems(
+      BoardState boardState, WinnerState winnerState, double boardSize) {
     final size = boardSize / boardState.gridSize;
     final items = <Widget>[];
     for (int i = 0; i < boardState.value.length; i++) {
@@ -31,17 +37,19 @@ class Board extends StatelessWidget {
         DragDirection? dragDirection;
         Function()? onSwap;
         // check item on right side
-        if (((i + 1) % boardState.gridSize > 0) && boardState.value[i + 1] == null) {
+        if (((i + 1) % boardState.gridSize > 0) &&
+            boardState.value[i + 1] == null) {
           dragDirection = DragDirection.right;
-          onSwap = () { 
+          onSwap = () {
             boardState.swap(i, i + 1);
             winnerState.check(boardState);
           };
-          
+
           // check item on left side
-        } else if ((i % boardState.gridSize != 0) && boardState.value[i - 1] == null) {
+        } else if ((i % boardState.gridSize != 0) &&
+            boardState.value[i - 1] == null) {
           dragDirection = DragDirection.left;
-          onSwap = () { 
+          onSwap = () {
             boardState.swap(i, i - 1);
             winnerState.check(boardState);
           };
@@ -49,8 +57,8 @@ class Board extends StatelessWidget {
           // check item above
         } else if (i >= boardState.gridSize &&
             boardState.value[i - boardState.gridSize] == null) {
-          dragDirection = DragDirection.up;          
-          onSwap = () { 
+          dragDirection = DragDirection.up;
+          onSwap = () {
             boardState.swap(i, i - boardState.gridSize);
             winnerState.check(boardState);
           };
@@ -59,7 +67,7 @@ class Board extends StatelessWidget {
         } else if (i < boardState.value.length - boardState.gridSize &&
             boardState.value[i + boardState.gridSize] == null) {
           dragDirection = DragDirection.down;
-          onSwap = () { 
+          onSwap = () {
             boardState.swap(i, i + boardState.gridSize);
             winnerState.check(boardState);
           };
