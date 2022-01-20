@@ -9,19 +9,11 @@ class StopwatchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final value = context.watch<TimerState>().value;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ClockView(
-          value: value,
-          color: Colors.yellow.shade200,
-        ),
-        const SizedBox(width: 12),
-        Text('Elapsed Time', style: textTheme.headline6),
-      ],
+    return ClockView(
+      value: value,
+      color: Colors.yellow.shade200,
     );
   }
 }

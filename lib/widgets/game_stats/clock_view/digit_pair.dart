@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'digit.dart';
+import 'package:puzzle_hack/widgets/game_stats/clock_view/flipping_digit.dart';
 
 class DigitPair extends StatelessWidget {
   const DigitPair({Key? key, required this.value}) : super(key: key);
@@ -11,7 +11,10 @@ class DigitPair extends StatelessWidget {
     final int? lastDigit = value != null ? value! % 10 : null;
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [Digit(value: firstDigit), Digit(value: lastDigit)],
+      children: [
+        FlippingDigit(value: firstDigit),
+        FlippingDigit(value: lastDigit)
+      ],
     );
   }
 }

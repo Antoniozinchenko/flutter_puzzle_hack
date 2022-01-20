@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puzzle_hack/widgets/game_stats/shuffle_button.dart';
 
 import 'best_score.dart';
 import 'stopwatch.dart';
@@ -8,20 +9,14 @@ class Score extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(12),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 6,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          BestScore(),
-          SizedBox(height: 12),
-          StopwatchWidget(),
-        ],
-      ),
+    return Row(
+      children: const [
+        BestScore(),
+        SizedBox(width: 12),
+        StopwatchWidget(),
+        SizedBox(width: 12),
+        ShuffleButton()
+      ],
     );
   }
 }

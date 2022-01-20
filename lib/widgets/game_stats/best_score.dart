@@ -8,18 +8,10 @@ class BestScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final score = context.watch<TimerState>().bestScore;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ClockView(
-          value: score,
-          color: Colors.green.shade200,
-        ),
-        const SizedBox(width: 12),
-        Text('Best score', style: textTheme.headline6),
-      ],
+    return ClockView(
+      value: score,
+      color: Colors.green.shade200,
     );
   }
 }

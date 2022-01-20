@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:puzzle_hack/bloc/timer_state.dart';
 import 'package:puzzle_hack/bloc/winner_state.dart';
-import 'package:puzzle_hack/widgets/board_decoration.dart';
-import 'package:puzzle_hack/widgets/game_stats/score.dart';
-import 'package:puzzle_hack/widgets/shuffle_button.dart';
+import 'package:puzzle_hack/widgets/board_layout.dart';
 
 import 'bloc/board_state.dart';
 
@@ -38,21 +36,8 @@ class Home extends StatelessWidget {
                     Color(0xFF434343),
                   ]),
             ),
-            child: Column(
-              children: const [
-                Score(),
-                Expanded(
-                  child: Center(
-                    child: AspectRatio(
-                      aspectRatio: 1.0,
-                      child: BoardDecoration(),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 12),
-                ShuffleButton(),
-                SizedBox(height: 12),
-              ],
+            child: const Center(
+              child: BoardLayout(),
             ),
           ),
         ),

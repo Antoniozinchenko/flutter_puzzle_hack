@@ -17,20 +17,27 @@ class ClockView extends StatelessWidget {
 
     return Provider<Color>(
       create: (_) => color,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DigitPair(value: minutes),
-          const Text(
-            ':',
-            style: TextStyle(
-              color: Colors.white54,
-              fontSize: 30,
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF343434),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        padding: const EdgeInsets.all(6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DigitPair(value: minutes),
+            const Text(
+              ':',
+              style: TextStyle(
+                color: Colors.white54,
+                fontSize: 30,
+              ),
             ),
-          ),
-          DigitPair(value: seconds)
-        ],
+            DigitPair(value: seconds)
+          ],
+        ),
       ),
     );
   }
