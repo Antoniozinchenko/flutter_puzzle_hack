@@ -20,7 +20,7 @@ class TileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final winner = context.watch<WinnerState>().value;
-    final color = winner ? Colors.green : Theme.of(context).primaryColor;
+    final color = winner ? Colors.green : Theme.of(context).colorScheme.primary;
     final borderRadius = BorderRadius.circular(size * 0.1);
     return Container(
       padding: const EdgeInsets.all(2),
@@ -54,7 +54,8 @@ class TileView extends StatelessWidget {
                 value.toString(),
                 style: TextStyle(
                   fontSize: size * 0.6,
-                  color: Colors.white54,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               Reflection(size: size),
